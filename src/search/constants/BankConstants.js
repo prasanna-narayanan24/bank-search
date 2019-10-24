@@ -1,0 +1,9 @@
+export const loader = "loader";
+export const unloader = "unloader";
+export const fetchBanksSuccess = "fetch-banks-success";
+export const fetchBankFailed = "fetch-banks-failed";
+export const handleCity = "handle-city";
+export const handleSearch = "handle-search";
+export const togglFavourite = "toggle-favourite";
+export const toggleShowFavourite = "toggle-show-favourite";
+export const updateFavourites = "update-favourites";
