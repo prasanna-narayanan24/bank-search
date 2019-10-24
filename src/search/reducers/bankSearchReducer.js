@@ -46,7 +46,7 @@ const bankSearchReducer = (state = initialState, action) => {
         case types.fetchBanksSuccess:
             nextState.banks = action.value;
             nextState.cache[nextState.selectedCity.toUpperCase()] = action.value
-            nextState.displayingBanks = action.value;
+            nextState.displayingBanks = filterBanks(nextState);
             break;
         case types.fetchBankFailed:
             nextState.error.hasError = true;
