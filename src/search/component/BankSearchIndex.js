@@ -6,7 +6,9 @@ import Loader from './loader';
 
 class BankSearchIndex extends Component {
     componentDidMount() {
-        this.props.actions.fetchBanks(this.props.bankSearch.cache, "");
+        // get the last selected city of the user
+        let city = window.localStorage.getItem('selected-city');
+        this.props.actions.fetchBanks(this.props.bankSearch.cache, city.toUpperCase());
         this.props.actions.updateFavourites(); // update the favourite list from local
     }
 

@@ -42,6 +42,7 @@ const bankSearchReducer = (state = initialState, action) => {
             break;
         case types.handleCity:
             nextState.selectedCity = action.value;
+            window.localStorage.setItem('selected-city', action.value);
             break;
         case types.fetchBanksSuccess:
             nextState.banks = action.value;

@@ -15,7 +15,7 @@ export default {
         "Pune",
         "Delhi",
     ],
-    favourites: {},
+    favourites: {}, // stores ifsc code as keys with true / false as value
     showFavourites: false,
     cache: {}
 }
