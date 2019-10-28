@@ -5,6 +5,13 @@ import SearchComponent from './SearchComponent';
 import Loader from './loader';
 
 class BankSearchIndex extends Component {
+    /**
+     * Index page comprising of different components
+     * Components:
+     *      SearchComponent         -> Form to listen for search term
+     *      SelectCityComponent     -> Dropdown component to provide an option choose city
+     *      BankList                -> List of banks matching the criteria
+     */
     componentDidMount() {
         // get the last selected city of the user
         let city = window.localStorage.getItem('selected-city');

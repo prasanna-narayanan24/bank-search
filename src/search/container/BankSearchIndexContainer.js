@@ -6,4 +6,5 @@ import { connect } from 'react-redux';
 const mapStateToProps = state => ({bankSearch: state.bankSearch});
 const mapDispatchToProps = dispatch => ({actions: bindActionCreators(actions, dispatch)});
 
+/** connect: connects reducer state and actions with components as props */
 export default connect(mapStateToProps, mapDispatchToProps)(BankSearchIndex);

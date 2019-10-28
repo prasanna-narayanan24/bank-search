@@ -6,9 +6,9 @@ const showBanksMatching = (banks, value) => {
     if (search.length <= 0 || banks.length <= 0) {
         return banks;
     }
-
-
+    
     return banks.filter(bank => {
+        // For any of the key that matches the given search term
         for (let key of Object.keys(bank)) {
             if (bank[key].toString().toLowerCase().includes(search))
                 return true;
@@ -17,71 +17,71 @@ const showBanksMatching = (banks, value) => {
     });
 }
 
-const showFavouriteBanks = (nextState, banks, favFilter) => {
+const showFavouriteBanks = (newState, banks, favFilter) => {
     if (favFilter)
-        return banks.filter(bank => nextState.favourites[bank.ifsc])
+        return banks.filter(bank => newState.favourites[bank.ifsc])
     return banks;
 }
 
-const filterBanks = nextState => {
-    let banks = showBanksMatching(nextState.banks, nextState.searchTerm);
-    banks = showFavouriteBanks(nextState, banks, nextState.showFavourites)
+const filterBanks = newState => {
+    let banks = showBanksMatching(newState.banks, newState.searchTerm);
+    banks = showFavouriteBanks(newState, banks, newState.showFavourites)
     return banks;
 }
 
 const bankSearchReducer = (state = initialState, action) => {
-    let nextState = Object.assign({}, initialState, state)
-    nextState.error = Object.assign({}, initialState.error, nextState.error);
+    let newState = Object.assign({}, initialState, state)
+    newState.error = Object.assign({}, initialState.error, newState.error);
 
     switch (action.type) {
         case types.loader:
-            nextState.loader = true;
+            newState.loader = true;
             break;
         case types.unloader:
-            nextState.loader = false;
+            newState.loader = false;
             break;
         case types.handleCity:
-            nextState.selectedCity = action.value;
+            newState.selectedCity = action.value;
             window.localStorage.setItem('selected-city', action.value);
             break;
         case types.fetchBanksSuccess:
-            nextState.banks = action.value;
-            nextState.cache[nextState.selectedCity.toUpperCase()] = action.value
-            nextState.displayingBanks = filterBanks(nextState);
+            newState.banks = action.value;
+            newState.cache[newState.selectedCity.toUpperCase()] = action.value
+            newState.displayingBanks = filterBanks(newState);
             break;
         case types.fetchBankFailed:
-            nextState.error.hasError = true;
-            nextState.error.message = action.value;
+            newState.error.hasError = true;
+            newState.error.message = action.value;
             break;
         case types.handleSearch:
-            nextState.searchTerm = action.value;
-            nextState.displayingBanks = filterBanks(nextState);
+            newState.searchTerm = action.value;
+            newState.displayingBanks = filterBanks(newState);
             break;
         case types.updateFavourites:
             let favourites = window.localStorage.getItem('favourites');
             if (favourites) {
                 for (let f of favourites.split(",")) {
-                    nextState.favourites[f.toString()] = true;
+                    newState.favourites[f.toString()] = true;
                 }
             }
-            nextState = { ...nextState }
+            newState = { ...newState }
             break;
         case types.togglFavourite:
-            nextState.favourites[action.value] = !!!nextState.favourites[action.value]
-            if (!nextState.favourites[action.value]) {
-                delete nextState.favourites[action.value]
-                nextState.displayingBanks = filterBanks(nextState);
+            newState.favourites[action.value] = !!!newState.favourites[action.value]
+            if (!newState.favourites[action.value]) {
+                delete newState.favourites[action.value]
+                newState.displayingBanks = filterBanks(newState);
             }
-            window.localStorage.setItem('favourites', Object.keys(nextState.favourites));
-            nextState = { ...nextState };
+            window.localStorage.setItem('favourites', Object.keys(newState.favourites));
+            newState = { ...newState };
             break;
         case types.toggleShowFavourite:
-            nextState.showFavourites = !nextState.showFavourites;
-            nextState.displayingBanks = filterBanks(nextState);
+            newState.showFavourites = !newState.showFavourites;
+            newState.displayingBanks = filterBanks(newState);
             break;
         default:
-            return nextState;
+            return newState;
     }
-    return nextState;
+    return newState;
 }
 export default bankSearchReducer;
