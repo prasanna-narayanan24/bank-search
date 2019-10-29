@@ -24,6 +24,34 @@ body {
     transform: scale(1.3);
 }
 
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    z-index: 10000;
+    background-color: red;
+    transition: .3s all;
+}
+
+.notification .notification-header {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    padding: .5rem .8rem .5rem .8rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification .notification-body {
+    padding: 1rem;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+
 @media only screen and (max-width: 768px) {
     .w-60 {
       width: 100%!important;

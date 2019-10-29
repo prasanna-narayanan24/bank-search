@@ -7,3 +7,4 @@ export const handleSearch = "handle-search";
 export const togglFavourite = "toggle-favourite";
 export const toggleShowFavourite = "toggle-show-favourite";
 export const updateFavourites = "update-favourites";
+export const unsetError = "unser-error";

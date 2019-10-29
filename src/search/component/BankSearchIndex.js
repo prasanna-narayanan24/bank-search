@@ -3,6 +3,7 @@ import SelectCityComponent from './SelectCityComponent';
 import BankList from './BankList';
 import SearchComponent from './SearchComponent';
 import Loader from './loader';
+import Notification from "./Notification";
 
 class BankSearchIndex extends Component {
     /**
@@ -15,7 +16,7 @@ class BankSearchIndex extends Component {
     componentDidMount() {
         // get the last selected city of the user
         let city = window.localStorage.getItem('selected-city');
-        if(city.length > 0) {
+        if(city && city.length > 0) {
             this.handleCity(city);
         }
         this.props.actions.updateFavourites(); // update the favourite list from local
@@ -37,10 +38,21 @@ class BankSearchIndex extends Component {
         this.props.actions.toggleShowFavourite();
     }
 
+    onNotificationClose = () => {
+        this.props.actions.unsetError();
+    }
+
     render() {
+        const { error } = this.props.bankSearch;
         return (
             <React.Fragment>
                 <div className="content-body">
+                    <Notification 
+                        hasError={error.hasError}
+                        errorCode={error.errorCode}
+                        message={error.message}
+                        onClose={this.onNotificationClose}
+                    />
                     <SelectCityComponent
                         selectedCity={this.props.bankSearch.selectedCity}
                         onCitySelect={this.handleCity}

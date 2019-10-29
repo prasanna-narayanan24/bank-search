@@ -38,6 +38,10 @@ export const toggleShowFavourite = () => ({
     type: types.toggleShowFavourite
 });
 
+export const unsetError = () => ({
+    type: types.unsetError
+})
+
 export const fetchBanks = (cache, city) => {
     if (city == null || city.length <= 0) {
         return dispatch => dispatch(unloader());

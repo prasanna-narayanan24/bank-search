@@ -6,7 +6,7 @@ const showBanksMatching = (banks, value) => {
     if (search.length <= 0 || banks.length <= 0) {
         return banks;
     }
-    
+
     return banks.filter(bank => {
         // For any of the key that matches the given search term
         for (let key of Object.keys(bank)) {
@@ -50,8 +50,15 @@ const bankSearchReducer = (state = initialState, action) => {
             newState.displayingBanks = filterBanks(newState);
             break;
         case types.fetchBankFailed:
-            newState.error.hasError = true;
-            newState.error.message = action.value;
+            let error = {
+                hasError: true,
+                errorCode: action.value.status,
+                message: action.value.responseText
+            }
+            newState = { ...newState, error }
+            break;
+        case types.unsetError:
+            newState.error = { ...initialState.error }
             break;
         case types.handleSearch:
             newState.searchTerm = action.value;

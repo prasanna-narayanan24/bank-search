@@ -4,6 +4,7 @@ export default {
     loader: false,
     error: {
         hasError: false,
+        errorCode: null,
         message: ''
     },
     banks: [],
